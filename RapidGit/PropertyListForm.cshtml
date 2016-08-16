@@ -1,0 +1,195 @@
+﻿@{
+    ViewBag.Title = "PropertyListForm";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+<h2> Property List </h2>
+
+
+<div class="example-box-wrapper" id="listAppend">
+    <table class="table table-striped hidden">
+        <thead>
+            <tr>
+                <th><a href="ttt">1</a></th>
+                <th>Property Type Id</th>
+                <th>Number of Units</th>
+                <th>Year Built</th>
+                <th>Assessor Parcel Number</th>
+                <th>Has detached unit</th>
+                <th>Has Rent Control</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>#</td>
+                <td>Row 1</td>
+                <td>Row 2</td>
+                <td>Row 3</td>
+            </tr>
+            <tr>
+                <td>#</td>
+                <td>Row 1</td>
+                <td>Row 2</td>
+                <td>Row 3</td>
+            </tr>
+            <tr>
+                <td>#</td>
+                <td>Row 1</td>
+                <td>Row 2</td>
+                <td>Row 3</td>
+            </tr>
+            <tr>
+                <td>#</td>
+                <td>Row 1</td>
+                <td>Row 2</td>
+                <td>Row 3</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-4">
+    <div class="tile-box bg-red">
+        <div class="tile-header">
+            Orders
+            <div class="float-right">
+                <i class="glyph-icon icon-caret-up"></i>
+                +15%
+            </div>
+        </div>
+        <div class="tile-content-wrapper">
+            <i class="glyph-icon icon-fire"></i>
+            <div class="tile-content">
+                65
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/sabio.services.properties.js"></script>
+    <script type="text/javascript">
+
+        sabio.page.startUp = function () {
+            console.log("The View Page is Firing");
+            sabio.page.propertyFormContainer = $("#listAppend");
+            sabio.page.getProperties();
+
+
+            $("#listAppend").on("click", ".edit-record", sabio.page.handlers.edit);
+            $("#listAppend").on("click", ".delete-record", sabio.page.handlers.deletePropertyInput)
+        }
+
+        sabio.page.getProperties = function () {
+            console.log("display list is firing");
+
+            sabio.services.properties.get(sabio.page.onGetSuccess, sabio.page.onGetError);
+
+        }
+
+        sabio.page.handlers.edit = function () {
+            console.log(this.id);
+
+
+            var url = "/properties/" + this.id + "/edit";
+
+            window.location = url;
+
+
+        }
+
+        sabio.page.handlers.deletePropertyInput = function () {
+            sabio.page.deleteId = $(this);
+            var newBar = $(this).attr("id");
+            sabio.services.properties.delete(newBar,
+            sabio.page.onDeleteSuccess, sabio.page.onDeleteError);
+        };
+
+        sabio.page.onGetSuccess = function (data) {
+            console.log(data.items)
+            console.log(data);
+            if (data && data.items) {
+                sabio.page.processProperties(data.items);
+            }
+        }
+
+        sabio.page.processProperties = function (arrProperties) {
+            for (var i = 0; i < arrProperties.length; i++) {
+                var currentProperty = arrProperties[i];
+                sabio.page.processProperty(i, currentProperty);
+            }
+        }
+
+        sabio.page.processProperty = function (propertyIndex, propertyData) {
+            var item = $($("#listItemTemplate").html());
+            var url = "/properties/" + propertyData.id + "/edit";
+
+            item.find(".prop-id").attr("href", url);
+            item.find(".delete-record").attr("id", propertyData.id);
+            item.find(".edit-record").attr("id", propertyData.id);
+            item.find(".prop-id").text(propertyData.id);
+            console.log(propertyData.id);
+            item.find(".prop-typeId").text(propertyData.typeId);
+            item.find(".number-units").text(propertyData.numberOfUnits);
+            item.find(".year-built").text(propertyData.yearBuilt);
+            item.find(".rent-control").text(propertyData.hasRentControl);
+            item.find(".assessor-parcel-number").text(propertyData.assessorParcelNumber);
+            item.find(".has-detached").text(propertyData.hasDetached);
+
+            sabio.page.appendProperty(item);
+        }
+
+        sabio.page.appendProperty = function (jqPropertyObject) {
+            sabio.page.propertyFormContainer.append(jqPropertyObject);
+        }
+
+        sabio.page.onGetError = function (jqXHR, textStatus, errorThrown) {
+            sabio.page.logToBottom(jqXHR.responseJSON);
+        };
+
+        sabio.page.onDeleteSuccess = function (data, status, xhr) {
+            sabio.page.deleteId.closest(".table-striped").remove();
+            console.log("Delete was successful");
+            sabio.page.deleteId = null;
+        };
+
+        sabio.page.onDeleteError = function (jqXHR, textStatus, errorThrown) {
+            console.log('delete error');
+        };
+    </script>
+
+    <script type="text/template" id="listItemTemplate">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Property Type Id</th>
+                    <th>Number of Units</th>
+                    <th>Year Built</th>
+                    <th>Has Rent Control</th>
+                    <th>Assessor Parcel Number</th>
+                    <th>Has Detached Units</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                    <td id="listLink"> <a class="prop-id" href="/prop/"> 33 </a>  </td>
+                    <td class="prop-typeId"> 2 </td>
+                    <td class="number-units"> 16 </td>
+                    <td class="year-built"> 1966 </td>
+                    <td class="rent-control"> true </td>
+                    <td class="assessor-parcel-number">123456789101</td>
+                    <td class="has-detached">true</td>
+                    <td> <button class="btn btn-link edit-record">  Edit  </button> </td>
+                    <td> <button class="btn btn-link delete-record"> Delete </button> </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </script>
+
+}

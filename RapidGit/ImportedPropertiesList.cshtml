@@ -1,0 +1,140 @@
+﻿@{
+   
+   
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+<h2></h2>
+
+
+<div class="row">
+<div class="panel-body" data-ng-controller="importedPropertiesController as listings" id="listingsCtrler">
+    <div class="animate-repeat" data-ng-repeat="listing in listings.items track by listing.id ">
+        <div class="col-md-4 col-md-2">
+            <div class="content-box">
+                <div class="content-box-wrapper">
+                    <div class="content-box-header clearfix bg-blue">
+                        <div class="user-details"><center><strong><em> Property Listing </em></strong></center></div>
+                    </div>     
+                            <div class="pad10A">
+                            <a data-ng-click="listings.selectProperty(listing)" href="">
+                                <div><i class="fa fa-user">APN: </i> <strong> {{listing.apn}}</strong></div>
+                                <div><i class="fa fa-user">Registered Date: </i> <strong> {{listing.registeredDate}}</strong></div>
+                                <div><i class="fa fa-user">Property Type: </i> <strong> {{listing.propertyType}} </strong></div>
+                                <div><i class="fa fa-user">Address: </i> <strong> {{listing.propertyAddress}}</strong></div>
+                                <div><i class="fa fa-user">City   : </i> <strong> {{listing.propertyCity}}</strong></div>
+                                <div><i class="fa fa-user">State: </i> <strong> {{listing.propertyState}} </strong></div>
+                                <div><i class="fa fa-user">Zip: </i> <strong> {{listing.propertyZip}}</strong></div>
+                                <div><i class="fa fa-user">Council District: </i><strong> {{listing.councilDistrict}}</strong></div>
+                                <div><i class="fa fa-user">Lender: </i> <strong> {{listing.lender}}</strong></div>
+                                <div><i class="fa fa-user">Lender Contact   : </i> <strong> {{listing.lenderContact}}</strong></div>
+                                <div><i class="fa fa-user">Lender Contact Phone: </i> <strong> {{listing.lenderContactPhone}} </strong></div>
+                                <div><i class="fa fa-user">Property Management: </i> <strong> {{listing.propertyManagement}}</strong></div>
+                                <div><i class="fa fa-user">Property Managment Contact: </i><strong> {{listing.propertyManagementContact}}</strong></div>
+                                <div><i class="fa fa-user">Property Managment Address: </i><strong> {{listing.propertyManagementAddress}}</strong></div>
+                                <div><i class="fa fa-user">Property Managment Phone: </i> <strong> {{listing.propertyMgmtContactPhone}}</strong></div>
+
+                            </a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="row animate-if" data-ng-if="listings.selectedListings" data-ng-include="'/scripts/app/admin/selectedListings.html'">
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+@section scripts
+{
+        <script src="~/Scripts/sabio.services.importedProperties.js"></script>
+        <script type="text/javascript">
+
+            (function () {
+                "use strict";
+
+                angular.module(APPNAME)
+                    .factory('$importedPropertiesService', ImportedPropertiesFactory);
+
+
+                ImportedPropertiesFactory.$inject = ['$baseService', '$sabio'];
+                function ImportedPropertiesFactory($baseService, $sabio) {
+
+                    var aListServiceObject = sabio.services.importedProperties;
+
+                    var newService = $baseService.merge(true, {}, aListServiceObject, $baseService);
+
+                    return newService;
+                }
+
+            })();
+
+            (function () {
+                "use strict";
+
+                angular.module(APPNAME)
+                    .controller('importedPropertiesController', ImportedPropertiesController);
+
+                ImportedPropertiesController.$inject = ['$scope', '$baseController', '$importedPropertiesService'];
+
+
+                function ImportedPropertiesController(
+
+                    $scope
+                    , $baseContoller
+                    , $importedPropertiesService) {
+
+
+                    var vm = this;
+
+                    $baseContoller.merge(vm, $baseContoller);
+
+
+                    vm.headingInfo = "Imported Property List";
+                    vm.items = null;
+                    vm.selectedProperty = null;
+
+                    vm.$importedPropertiesService = $importedPropertiesService;
+                    vm.$scope = $scope;
+
+
+                    vm.receiveItems = _receiveItems;
+                    vm.selectProperty = _selectProperty;
+                    vm.onPropError = _onPropError;
+
+
+                    vm.notify = vm.$importedPropertiesService.getNotifier($scope);
+
+                    render();
+
+                    function render() {
+
+                        vm.$importedPropertiesService.get(vm.receiveItems, vm.onPropError);
+
+                    }
+
+
+                    function _receiveItems(data) {
+
+                        vm.notify(function () {
+                            vm.items = data.items;
+                        });
+                    }
+
+                    function _selectProperty(aProp) {
+
+                        console.log(aProp);
+                        vm.selectedProperty = aProp;
+                    }
+
+
+                    function _onPropError(jqXhr, error) {
+                        console.log(error);
+                    }
+                }
+            })();
+      </script>
+ }

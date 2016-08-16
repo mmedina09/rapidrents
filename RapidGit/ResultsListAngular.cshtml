@@ -1,0 +1,545 @@
+﻿@{
+    ViewBag.Title = "ResultsListAngular";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+
+<div class="panel">
+    <div class="panel-body clearfix bg-blue">
+        <div class="col-lg-12 headerTitle"><center> <h2><em> Maintenance Requests</em></h2> </center></div>
+        <div class="example-box-wrapper toggle-button-container box-wrapper">
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="panel-body" data-ng-controller="maintReqController as list" id="maintRqCtrler">
+        <div class="animate-repeat" ng-repeat="req in list.items track by req.id">
+            <div class="col-md-4">
+                <div class="content-box">
+                    <div class="content-box-wrapper">
+                        <div class="content-box-header clearfix bg-blue">
+                            <div class="user-details"><center><strong><em>{{req.subject}} &nbsp;&nbsp;&nbsp;&nbsp;Urgency:&nbsp;{{req.urgencyId}} </em></strong></center></div>
+                        </div>
+                        <div class="pad10A">
+                            <div class="row animate-if" data-ng-if="listings.selectedProperty" data-ng-include="'modalContent.html'">
+                            </div>
+                            <a data-ng-click="list.updateMaintReq(req)" href="">
+                                <div><i class="fa fa-user">Name: </i> <strong> {{req.name}}</strong></div>
+                                <div><i class="fa fa-user">Request Date: </i> <strong> {{req.dateAdded | date:"M/dd/yyyy"}}</strong></div>
+                                <div><i class="fa fa-user">Unit Number: </i> <strong> {{req.unit_No}} </strong></div>
+                                <div><i class="fa fa-user">Request Id: </i> <strong> {{req.id}}</strong></div>
+                            </a>
+                            <span class="bs-label badge-yellow" ng-show="req.status == 1">Submitted</span>
+                            <span class="bs-label badge-success" ng-show="req.status == 2">Open</span>
+                            <span class="bs-label badge-primary" ng-show="req.status == 3">Closed</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row animate-if" data-ng-if="listings.selectedProperty" data-ng-include="'modalContent.html'">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script class="col--6" type="text/ng-template" id="modalContent.html">
+
+    <form id="comForm" name="mc.commentForm" ng-submit="mc.addNewComment(mc.addComment)">
+
+
+
+
+        <div class="modal-header">
+            <center> <h3 class="content-box-header clearfix bg-blue">{{"Request ID  " +mc.maintReqObj.id}}</h3></center>
+        </div>
+
+
+        <div class="animate-repeat button-pane pad10A">
+            <div>
+                <i class="fa fa-user"> </i> <strong> {{"REQUEST DESCRIPTION: " +mc.maintReqObj.description}}</strong>
+            </div>
+        </div>
+
+
+        <div class="content-box button-pane pad10A">
+            <h3 class="content-box-header bg-blue text-left">
+                <i class="glyph-icon icon-comments"></i>
+                Comments
+            </h3>
+            <div class="scrollable-content scrollable-slim scrollable-medium" style="width:auto; height: 200px;">
+                <div class="content-box-wrapper animate-repeat" ng-repeat="item in mc.newCommentItems">
+
+                    <ul class="chat-box">
+                        <li style="padding-right:60px;">
+                            <div class="chat-author">
+                            </div>
+                            <div class="no-shadow; padding-right:60px;">
+                                <div class="arrow"></div>
+                                <div class="popover popover-content" style="max-width: 1000px !important">
+                                    Subject:
+                                    <strong><em>{{item.title}}</em></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>{{item.body}}</em>
+                                    <div class="chat-time">
+                                        <i class="glyph-icon icon-clock-o"> {{item.dateAdded | date:"M-dd-yyyy"}}  </i>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div>
+            <div class="button-pane pad10A" ng-if="mc.addNewClicked">
+                <input type="text"
+                       class="form-control margin-full-5"
+                       ng-class="{'error': mc.showNewCommentErrors && !mc.commentForm.title.$valid}"
+                       placeholder="Subject....."
+                       name="title"
+                       id="title"
+                       ng-model="mc.addComment.title"
+                       ng-minlength="2"
+                       ng-maxlength="50"
+                       required>
+                <div role="alert" class="help-inline error">
+                    <span class="alert alert-danger" ng-show="mc.showNewCommentErrors && mc.commentForm.title.$error.required">A Subject is required</span> <!-- errors for specific fields can be accessed with the syntax [form name].[field name].$error.[validator name] -->
+                    <span class="alert alert-danger" ng-show="mc.showNewCommentErrors && mc.commentForm.title.$error.minlength">Subject name must be at least 2 characters</span>
+                    <span class="alert alert-danger" ng-show="mc.showNewCommentErrors && mc.commentForm.title.$error.maxlength">Subject name must be 50 characters or less</span>
+                </div>
+                <div class="row" style="height:15px"></div>
+
+                <textarea class="form-control margin-full-5"
+                          ng-class="{'error': mc.showNewCommentErrors && !mc.commentForm.title.$valid}"
+                          name="body"
+                          id="body"
+                          ng-minlength="10"
+                          ng-maxlength="140"
+                          ng-model="mc.addComment.body"
+                          placeholder="Add Comment....."
+                          rows="3"
+                          required></textarea>
+
+                <div role="alert" class="help-inline error">
+                    <span class="alert alert-danger" ng-show="mc.showNewCommentErrors && mc.commentForm.body.$error.required">A Comment is required</span> <!-- errors for specific fields can be accessed with the syntax [form name].[field name].$error.[validator name] -->
+                    <span class="alert alert-danger" ng-show="mc.showNewCommentErrors && mc.commentForm.body.$error.minlength">Subject name must be at least 10 characters</span>
+                    <span class="alert alert-danger" ng-show="mc.showNewCommentErrors && mc.commentForm.body.$error.maxlength">Subject name must be 50 characters or less</span>
+                </div>
+                <div class="button-pane pad10A">
+                    <button class="btn btn bg-blue " type="submit" id="cmdAddPerson">Submit Comment</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="button-pane pad10A">
+            <button class="btn btn bg-blue text-center" ng-hide="mc.addNewClicked"
+                    id="cmdAddPerson" ng-click="mc.addNewClicked = !mc.addNewClicked;">
+                Add New Comment
+            </button>
+        </div>
+
+
+    </form>
+
+
+    <form class="row" ng-submit="mc.changeStatus(mc.maintReqObj.status)">
+        <div>
+            <div class="col-sm-offset-3 col-sm-5 text-center">
+                <label class="col-sm-4 control-label"></label>
+                <select class="form-control  col-sm-offset-2" id="statusUpdate"
+                        ng-options="stat.statusId as stat.statusName for stat in  mc.statusList"
+                        name="statusUpdate" ng-model="mc.maintReqObj.status">
+                    <option value="">---Please select---</option>
+                </select>
+                <br />
+                <button type="submit" id="cmdAddPerson" class="btn btn bg-blue col-sm-offset-3">Update Status</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="modal-footer">
+
+        <button class="btn btn bg-blue" ng-click="mc.ok()">Close</button>
+    </div>
+
+
+</script>
+
+
+@*<ng-include src="'/Scripts/sabio/ContactUs/MaintStatusUpdateEmail.html'"></ng-include>
+<ng-include src="'/Scripts/sabio/ContactUs/MaintCommentEmail.html'"></ng-include>*@
+
+
+@section scripts {
+    <script src="~/assets/admin/widgets/daterangepicker/moment.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/sabio.services.maintenancerquest.js"></script>
+    <script src="~/Scripts/sabio.services.comment.js"></script>
+    <script type="text/javascript">
+
+        (function () {
+            "use strict";
+
+            angular.module(APPNAME)
+                    .factory('$maintReqService', maintReqServiceFactory);
+
+
+
+            maintReqServiceFactory.$inject = ['$baseService', '$sabio', ];
+
+            function maintReqServiceFactory($baseService, $sabio) {
+                var aMntnceRquestObject = sabio.services.maintenanceRequest;
+
+                var newService = $baseService.merge(true, {}, aMntnceRquestObject, $baseService);
+
+                return newService;
+            }
+
+
+        })();
+
+
+        (function () {
+            "use strict";
+
+            angular.module(APPNAME)
+                    .factory('$maintCommentService', maintCommentServiceFactory);
+
+            maintCommentServiceFactory.$inject = ['$baseService', '$sabio' ];
+
+            function maintCommentServiceFactory($baseService, $sabio) {
+                var aCommentRequestObject = sabio.services.comment;
+                var firstService = $baseService.merge(true, {}, aCommentRequestObject, $baseService);
+                return firstService;
+            }
+
+
+        })();
+
+        (function () {
+            "use strict";
+
+            angular.module(APPNAME)
+                .controller('maintReqController', MaintReqController);
+
+            MaintReqController.$inject = ['$scope', '$baseController', '$maintReqService', '$uibModal'];
+
+            function MaintReqController(
+                $scope
+                , $baseController
+                , $maintReqService
+                , $uibModal) {
+
+
+                var vm = this;
+                $baseController.merge(vm, $baseController);
+
+                vm.headingInfo = "Admin Maintenance Requests Response";
+                vm.items = null;
+                vm.selectedMaintReq = null;
+                vm.newMaintReq = null;
+                vm.maintReqForm = null;
+                vm.maintReqFormVisible = false;
+                vm.showNewMaintReqErrors = false;
+
+                vm.$maintReqService = $maintReqService;
+                vm.$scope = $scope;
+                vm.$uibModal = $uibModal;
+
+                vm.modalSelected = null;
+                vm.modalItems = vm.items;
+
+
+
+
+                vm.receiveItems = _receiveItems;
+                vm.selectMaintReq = _selectMaintReq;
+                vm.onReqError = _onReqError;
+                vm.saveStatus = _saveStatus;
+                vm.showMaintReqForm = _showMaintReqForm;
+                vm.updateMaintReq = _updateMaintReq;
+
+                vm.resetMaintReqForm = _resetMaintReqForm;
+
+                vm.openModal = _openModal;
+
+                vm.notify = vm.$maintReqService.getNotifier($scope);
+
+
+                render();
+
+                function render() {
+                    vm.$maintReqService.get(vm.receiveItems, vm.onReqError);
+                }
+
+                function _receiveItems(data) {
+                    vm.notify(function () {
+                        vm.items = data.items;
+                    });
+                }
+
+
+                function _resetMaintReqForm() {
+                    console.log("reset form");
+                    vm.maintReqFormVisible = false;
+                    vm.showNewMaintReqErrors = false;
+                    vm.newMaintReq = null;
+                    vm.maintReqForm.$setPristine();
+                    vm.maintReqForm.$setUntouched()
+                }
+
+
+
+                function _showMaintReqForm() {
+                    console.log("show form!");
+                    vm.maintReqFormVisible = !vm.maintReqFormVisible;
+                }
+
+
+                function _updateMaintReq(aReq) {
+                    var des = aReq;
+                    vm.showNewMaintReqErrors = true;
+                    vm.openModal(des);
+                }
+
+
+
+
+                function _selectMaintReq(aReq) {
+                    console.log(anReq);
+                    vm.selectedMaintReq = aReq;
+                }
+
+
+                function _saveStatus(aReq) {
+                    console.log("Go and save this new data");
+                    console.log(aReq);
+                }
+
+
+
+
+                function _onReqError(jqXhr, error) {
+                    console.error(error);
+                }
+
+
+                function _openModal(pim) {
+
+                    var modalInstance = vm.$uibModal.open({
+                        animation: true,
+                        templateUrl: 'modalContent.html',
+                        controller: 'maintenanceModalController as mc',
+                        size: 'md',
+                        resolve: {
+                            items: function () {
+                                return vm.modalItems = vm.items;
+                            },
+
+                            maintReqObj: function () {
+                                return pim;
+                            }
+
+                        }
+                    });
+
+                    modalInstance.result.then(_onModalSubmitted, _onModalDismissed);
+
+                }
+
+
+                function _onModalSubmitted(mReq) {
+                    vm.modalSelected = mReq;
+                }
+
+                function _onModalDismissed() {
+                    console.log('Modal dismissed at: ' + new Date());
+                }
+
+
+
+            }
+        })();
+
+
+        (function () {
+            "use strict";
+
+            angular.module(APPNAME)
+                .controller('maintenanceModalController', maintenanceModalController);
+
+
+            maintenanceModalController.$inject = ['$scope', '$baseController', '$uibModalInstance', '$maintReqService', '$maintCommentService', 'items', 'maintReqObj'];
+
+            function maintenanceModalController(
+                $scope
+                , $baseController
+                , $uibModalInstance
+                , $maintReqService
+                , $maintCommentService
+                , items
+                , maintReqObj
+                 ) {
+
+                var vm = this;
+
+                $baseController.merge(vm, $baseController);
+
+                vm.$scope = $scope;
+                vm.$uibModalInstance = $uibModalInstance;
+                vm.$maintCommentService = $maintCommentService;
+                vm.$maintReqService = $maintReqService;
+                vm.$alertService = vm.$alertService;
+
+                vm.newCommentItems = null;
+                vm.showNewCommentErrors = false;
+                vm.commentForm = null;
+
+                vm.addComment = {
+                    TypeId: 'MR',
+                    EntityId: maintReqObj.id
+                };
+
+
+                vm.newComment = null;
+
+                vm.receiveComments
+                vm.statusList =
+                    [
+                   { statusId: 1, statusName: "Submitted" },
+                   { statusId: 2, statusName: "Open" },
+                    { statusId: 3, statusName: "Closed" }
+
+                    ];
+
+
+                vm.receiveComments = _receiveComments;
+                vm.receiveComment = _receiveComment;
+                vm.changeSuccess = _changeSuccess;
+                vm.changeError = _changeError;
+                vm.onReqError = _onReqError;
+                vm.commentSuccess = _commentSuccess;
+                vm.onCommentInsertError = _onCommentInsertError;
+                vm.addNewComment = _addNewComment;
+                vm.changeStatus = _changeStatus;
+                vm.onCommentAddError = _onCommentAddError;
+                vm.maintReqObj = maintReqObj;
+                vm.modalItems = items;
+
+
+
+                vm.notify = vm.$maintCommentService.getNotifier($scope);
+
+                render();
+
+                function render() {
+                    vm.$maintCommentService.getByTypeId(vm.maintReqObj.id, vm.receiveComments, vm.onReqError);
+                }
+
+                function _receiveComments(data) {
+
+                    vm.notify(function () {
+                        vm.newCommentItems = data.items;
+
+                    });
+                }
+
+
+                function _onReqError(jqXhr, error) {
+                    console.log("get comment error");
+                }
+
+
+                function _addNewComment(aComm) {
+
+                    console.log("addMaint Fired!")
+                    vm.showNewCommentErrors = true
+
+
+                    if (vm.commentForm.$valid) {
+                        vm.$maintCommentService.add(vm.addComment, vm.commentSuccess, vm.onCommentInsertError);
+
+                    }
+                    else {
+                        console.log("form submitted with invalid data :(")
+                    }
+                }
+
+
+                function _changeStatus(reqStat) {
+                    vm.maintReqObj.unitNumber = vm.maintReqObj.unit_No;
+                    vm.$maintReqService.getUpdate(vm.maintReqObj.id, vm.maintReqObj, vm.changeSuccess, vm.changeError);
+
+                }
+
+                function _commentSuccess(data) {
+                    console.log("add success!")
+                    vm.addComment = null;
+                    vm.$maintCommentService.getById(data.item, vm.receiveComment, vm.onCommentError);
+                    vm.commentForm.$setPristine();
+                    vm.commentForm.$setUntouched();
+                    vm.showNewCommentErrors = false;
+                }
+
+                function _onCommentInsertError(jqXhr, error) {
+                    console.log(" add comment error")
+                }
+
+
+                function _receiveComment(data) {
+
+                    vm.notify(function () {
+                        vm.newCommentItems.push(data.item);
+
+                    });
+                }
+
+
+                function _changeSuccess() {
+
+                    vm.$alertService.success("Status update successful!")
+
+                }
+
+                function _changeError(jqXhr, error) {
+
+                    vm.$alertService.error("Status update error!")
+
+                }
+
+                function _onCommentAddError(jqXhr, error) {
+                    console.log(" add comment error")
+                }
+
+                function _saveStatus(aComm) {
+                    console.log("Go and save this new data");
+                    console.log(aComm);
+                }
+
+                vm.ok = function () {
+                    vm.$uibModalInstance.close(vm.maintReqObj);
+                };
+
+                vm.cancel = function () {
+                    vm.$uibModalInstance.dismiss('cancel');
+                };
+
+
+
+            }
+        })();
+
+
+
+    </script>
+}

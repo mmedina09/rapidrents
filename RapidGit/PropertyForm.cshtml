@@ -1,0 +1,232 @@
+﻿@model Sabio.Web.Models.ViewModels.ItemViewModel<int?>
+@{
+
+    ViewBag.Title = "PropertyForm";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div>
+    <h2 class="content-box-header bg-primary" style="font-family:verdana; font-size: 20px; text-align:center">Property Information</h2>
+</div>
+
+<div class="panel">
+    <div class="panel-body">
+        <form class="form-horizontal bordered-row" id="prop-form">
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label"> Property Type </label>
+                <div class="col-sm-6">
+                    <select class="form-control col-md-6" id="propertyTypeId" name="TypeId">
+                        <option value="1">Single Family</option>
+                        <option value="2">Apartment</option>
+                        <option value="3">Town House</option>
+                        <option value="4">Duplex</option>
+                        <option value="5">Condominium</option>
+                        <option value="6">Commercial Real Estate</option>
+                    </select>
+                    <p class="help-block">Click the drop down arrow</p>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Number of Units</label>
+                <div class="col-sm-6">
+                    <select class="form-control col-md-6" id="propertyUnits" name="numberOfUnits">
+                        <option value="1">1-4</option>
+                        <option value="2">5-10</option>
+                        <option value="3">11-20</option>
+                        <option value="4">20-29</option>
+                        <option value="5">30+</option>
+                    </select>
+                    <p class="help-block">Click the drop down arrow</p>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Year Built</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control year" id="yearBuild" name="yearBuilt" placeholder="Enter Year">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Assessor Parcel Number</label>
+                <div class="col-sm-6">
+                    <select class="form-control col-md-4" id="parkId" name="parkingTypeId">
+                        <option value="1">None</option>
+                        <option value="2"> Covered Parking </option>
+                        <option value="3">Street Permit</option>
+                        <option value="4">Gated</option>
+                    </select>
+                    <input type="text" class="form-control" id="assessorParcelNumber" name="assessorParcelNumber" placeholder="Enter Assessor Parcel Number">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="hasDetached" class="col-sm-3 control-label">Has detached units</label>
+                <div class="col-sm-6">
+                    <select name="hasDetached" class="form-control hasDetached col-md-4" id="hasDetached">
+                        <option value=""></option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select><p class="help-block">Click the drop down arrow</p>
+
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="checkbox" id="checkBox"
+                       name="hasRentControl" class="col-sm-1 col-sm-offset-4 " value="true"><strong>Has Rent Control</strong>
+            </div>
+
+
+            <div class="form-group" id="buttons">
+                <button type="submit" class="btn btn-primary col-sm-offset-5" id="propertySubmitButton">Submit</button>
+            </div>
+
+
+            <div class="itemId">
+
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/sabio.services.properties.js"></script>
+
+    <script type="text/javascript">
+        sabio.page.startUp = function () {
+            console.log("Proprty Page is online.");
+            sabio.page.currentId = '@Model.Item';
+            if (sabio.page.currentId) {
+                sabio.page.handlers.selectById();
+            }
+            console.log(sabio.page.currentId);
+            sabio.page.validate();
+            $("#propertySubmitButton").on("click", sabio.page.handlers.addPropertyInput)
+        };
+
+        sabio.page.handlers.addPropertyInput = function () {
+
+            if ($('#prop-form').valid()) {
+                if (sabio.page.currentId) {
+                    sabio.page.handlers.updatePropertyInput()
+                } else {
+                    console.log("Input Submit Form");
+                    var myData = $("#prop-form").serialize()
+                    sabio.services.properties.add(myData,
+                    sabio.page.onPostSuccess, sabio.page.onPostError);
+                }
+            }
+        }
+
+        sabio.page.handlers.updatePropertyInput = function () {
+            var myData = $("#prop-form").serialize() + "&Id=" + sabio.page.currentId;
+            sabio.services.properties.update(sabio.page.currentId, myData,
+            sabio.page.onUpdateSuccess, sabio.page.onUpdateError);
+            console.log("Update Submit Form");
+        };
+
+        sabio.page.handlers.selectById = function () {
+            console.log("Select by Id Fires!");
+            sabio.services.properties.getById(sabio.page.currentId, sabio.page.onSelectSuccess, sabio.page.onUpdateError);
+        };
+
+        sabio.page.validate = function () {
+            jQuery.validator.setDefaults({
+                debug: true
+            });
+
+            $('#prop-form').validate({
+                rules: {
+                    "TypeId": {
+                        required: true,
+                        maxlength: 100
+                    },
+                    "yearBuilt": {
+                        required: true,
+                        number: true
+                    },
+                    "assessorParcelNumber": {
+                        required: true,
+                        minlength: 12,
+                        maxlength: 12,
+                    }
+                },
+
+                messages: {
+                    "TypeId": {
+                        required: "Property Type is required something.",
+                        maxlength: "Maximum length of 100 Characters"
+                    },
+                    "yearBuilt": {
+                        required: "A valid value for year is required.",
+                        number: "Year value must be a number."
+                    },
+                    "assessorParcelNumber": {
+                        required: "A valid assessor parcel number is required",
+                        minlength: "A valid 12 digit assessor parcel number is required",
+                        maxlength: "A valid 12 digit assessor parcel number is required",
+                    }
+                }
+            });
+        };
+
+        sabio.page.onPostSuccess = function (data, status, xhr) {
+            sabio.page.currentId = (data.item);
+            console.log("Post was successful");
+            $(".itemId").html(data.item);
+        };
+
+        sabio.page.onUpdateSuccess = function (data, status, xhr) {
+            console.log("Update Sucessful!");
+            $(".itemId").html(data.item);
+        };
+
+        sabio.page.onSelectSuccess = function (data, status, xhr) {
+            console.log(data);
+            console.log(data.item);
+
+            if (data.item) {
+                sabio.page.populateform(data.item);
+            }
+        };
+
+        sabio.page.populateform = function (singleProperty) {
+            $("#propertyTypeId").val(singleProperty.typeId);
+            $("#propertyUnits").val(singleProperty.numberOfUnits);
+            $("#yearBuild").val(singleProperty.yearBuilt);
+            $("#assessorParcelNumber").val(singleProperty.assessorParcelNumber);
+            $("select.hasDetached option:selected").val(singleProperty.hasDetached);
+
+            console.log("has detached value is " + singleProperty.hasDetached);
+
+            if (singleProperty.hasRentControl) {
+                $("#checkBox").prop("checked", true);
+            }
+        }
+
+        sabio.page.onPostError = function (jqXHR, textStatus, errorThrown) {
+            sabio.page.logToBottom(jqXHR.responseJSON);
+            $("#msgWindow").addClass("alert-danger");
+            $("#msgWindow").removeClass("alert-info");
+        };
+
+        sabio.page.onUpdateError = function (jqXHR, textStatus, errorThrown) {
+            sabio.page.logToBottom(jqXHR.responseJSON);
+            $("#msgWindow").addClass("alert-danger");
+            $("#msgWindow").removeClass("alert-info");
+        };
+
+        sabio.page.logToBottom = function (data) {
+            $("#msgWindow").html((JSON.stringify(data)));
+        };
+    </script>
+}

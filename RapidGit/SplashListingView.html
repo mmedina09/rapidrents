@@ -1,0 +1,278 @@
+﻿<div class="container bodyPage" data-ng-controller="searchController as searchCtrl" id="searchController">
+
+    <div class="row">
+
+        <div class="col-sm-5 hidden-xs home_form">
+
+            <div class="col-sm-12 well lform" style="height: 326px;">
+
+                <div class="row">
+                    <form class="form-vertical" id="searchForm" name="searchCtrl.searchForm">
+
+                        <fieldset>
+                            <div class="col-sm-12">
+                                <div class="row hidden-sm form-group">
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+                                            <label>Minimum Price</label>
+                                            <input class="form-control" ng-model="searchCtrl.selectedSearch.Min" id="minimumPrice" name="Min" placeholder="Minimum..." />
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+                                            <label>Maximum Price</label>
+                                            <input class="form-control" ng-model="searchCtrl.selectedSearch.Max" id="maximumPrice" name="Max" placeholder="Maximum..." />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label>Availability Date</label>
+                                        <div class="input-prepend form-group">
+                                            <input type="text" ng-model="searchCtrl.selectedSearch.AvailabilityDate" class="bootstrap-datepicker form-control" placeholder="MM/DD/YYYY" data-date-format="mm/dd/yyyy">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 form-group">
+                                        <label>Parking</label>
+                                        <select class="form-control" ng-model="searchCtrl.selectedSearch.HasParking">
+                                            <option value="">--Select--</option>
+                                            <option value="true">Yes</option>
+                                            <option value="false">No</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-12 form-group">
+                                        <label>Lease Terms</label>
+
+                                        <select class="form-control" ng-model="searchCtrl.selectedSearch.LeaseTerms">
+                                            <option value="">--Select--</option>
+                                            <option value="12">One Year Lease</option>
+                                            <option value="24">Two Year Lease</option>
+                                            <option value="36">Three Year Lease</option>
+
+
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 pull-right">
+
+                                    <button class="btn btn-primary pull-right" type="button" data-ng-click="searchCtrl.submitSearch()">Search</button>
+
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-md-7 col-sm-7 col-xs-12 no_margin_left home_carousel pull-right">
+
+
+
+
+
+            <div id="carousel-home" ng-non-bindable class="carousel slide" data-ride="carousel">
+
+                <div class="showcase-arrow-next" href="#carousel-home" data-slide="next" style="display: none;"></div>
+                <div class="showcase-arrow-previous" href="#carousel-home" data-slide="next" style="display: none;"></div>
+
+                <div class="carousel-inner">
+
+
+                    <div class="item">
+                        <a><img src="css/images/houses/pevGxPg.jpg" href="/properties/maplist" alt=""></a>
+
+
+                        <div class="carousel-caption">
+                            <a href="/properties/maplist">
+                                <h4>Map of properties</h4>
+                                <p>Interested in renting an apartment or home in the Hills?</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="item active">
+                        <a href="/listings"><img src="css/images/houses/pexels-photo.jpg" href="/listings" alt=""></a>
+
+
+                        <div class="carousel-caption">
+                            <a href="/listings">
+                                <h4>Search listings</h4>
+                                <p>View a listing of all the homes according to your taste, wherever you want</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <a href="/addresses/rentcheck"><img src="css/images/houses/ISTOCK_000004639473MEDIUM.jpg" href="/addresses/rentcheck" alt=""></a>
+
+
+                        <div class="carousel-caption">
+                            <a href="/addresses/rentcheck">
+                                <h4>See if you are over paying for rent!</h4>
+                                <p>We will help you find what your neighbors are paying. Click here to learn more</p>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="row home-latest" style="padding-top: 20px">
+        <div class="col-xs-4">
+            <h3 class="hidden-xs"><span>Latest</span> properties</h3>
+            <h3 class="visible-xs"><span>Latest</span></h3>
+            <a href="/listings/reports#/latestProperties"><img src="css/images/houses/modern-apt-interior.jpg" alt=""></a>
+            <p>Sign up for our weekly newsletter and stay up-to-date with the latest offers, and newest products.<a href="/listings/reports#/latestProperties" class="pull-right">more...</a></p>
+        </div>
+        <div class="col-xs-4">
+            <h3 class="hidden-xs"><span>New</span> homes</h3>
+            <h3 class="visible-xs"><span>New homes</span></h3>
+            <a href="/listings/reports#/NewProperties"><img src="css/images/houses/modern-apartmentsb.jpg" alt=""></a>
+            <p>Sign up for our weekly newsletter and stay up-to-date with the latest offers, and newest products.<a href="/listings/reports#/NewProperties" class="pull-right">more...</a></p>
+        </div>
+        <div class="col-xs-4">
+            <h3 class="hidden-xs"><span>Homes</span> Abroad</h3>
+            <h3 class="visible-xs"><span>Overseas</span></h3>
+            <a href="/listings/reports#/HomesAbroad"><img src="css/images/houses/46e8093e2cc0b9d5012ccf9753bb020fb.jpg" alt=""></a>
+            <p>Sign up for our weekly newsletter and stay up-to-date with the latest offers, and newest products.<a href="/listings/reports#/HomesAbroad" class="pull-right">more...</a></p>
+        </div>
+    </div>
+
+    
+    <div class="row">
+        <br>
+        <div class="col-sm-4 hidden-xs">
+            <h3><span>Popular</span> listings</h3>
+       
+
+            <div id="home_map_canvas" style="position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);">
+            
+            </div>
+    
+        </div>
+
+        <div class="col-sm-8 ">
+
+            <div class="col-sm-12">
+                <h4>
+                    Showing {{(((searchCtrl.pageIndex+1)*searchCtrl.itemsPerPage)-(searchCtrl.itemsPerPage-1))}}
+                        {{((searchCtrl.pageIndex+1)*searchCtrl.itemsPerPage) > searchCtrl.totalCount? searchCtrl.totalCount : ((searchCtrl.pageIndex+1)*searchCtrl.itemsPerPage)}}
+                        of {{searchCtrl.totalCount}} results
+                    </h4>
+            </div>
+
+            <div class="row premium listingItems">
+                <div class="listingsHeader" ng-show="searchCtrl.searchHeader">
+                    <h3><span>Search</span> Results</h3>
+                </div>
+
+            </div>
+
+            <table class="table table-bordered table-striped listingsDetail">
+                <thead>
+                    <tr>
+                        <th class="">Description</th>
+                        <th class="hidden-sm hidden-xs">City</th>
+                        <th>Monthly Rent</th>
+                        <th class="hidden-sm hidden-xs">Availability Date</th>
+                        <th class="hidden-sm hidden-xs">View Details</th>
+                    </tr>
+                </thead>
+                <tbody data-ng-repeat="listings in searchCtrl.items track by listings.id">
+                    <tr>
+                        <td class="listingsDetail"><a href="property.html" title="{{listings.headline}}">{{listings.headline}}</a></td>
+                        <td class="hidden-sm hidden-xs">Los Angeles</td>
+                        <td>{{listings.rentCost}}</td>
+                        <td class="hidden-sm hidden-xs">{{listings.availabilityDate | date:'shortDate'}}</td>
+                        <td class="hidden-sm hidden-xs"><a href="property.html">View</a></td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+                <pagination total-items="searchCtrl.totalCount"
+                            items-per-page="searchCtrl.itemsPerPage"
+                            ng-change="searchCtrl.changePage()"
+                            ng-model="searchCtrl.currentPage"
+                            rotate="true"
+                            max-size="5"
+                            boundary-link="true"
+                            onload="">
+                </pagination>
+            </div>
+
+
+    <br />
+    <div class="row center">
+        More cities : <a href="/Properties/maplist">Santa Monica</a>,
+        <a href="/Properties/maplist">Venice</a>,
+        <a href="/Properties/maplist">Culver City</a>,
+        <a href="/Properties/maplist">Westwood</a>,
+        <a href="/Properties/maplist">Sherman Oaks</a>,
+        <a href="/Properties/maplist">Pasadena</a>,
+        <a href="/Properties/maplist">Marina Del Rey</a>,
+        <a href="/Properties/maplist">Topanga</a>,
+        <a href="/Properties/maplist">Hollywood</a>,
+        <a href="/Properties/maplist">Echo Park</a>,
+        <a href="/Properties/maplist">Downtown LA</a>,
+        <a href="/Properties/maplist">Glendale</a>
+    </div>
+</div>
+</div>
+<script type="text/ng-template" id="searchFilterModal.html">
+    <div class="clearfix" data-ng-controller="searchController as searchCtrl" id="searchController">
+        <div class="modal-header">
+            <h3 class="modal-title">Search</h3>
+        </div>
+        <form id="modalForm" class="col-lg-12">
+            <div class="modal-body">
+                <div class="col-sm-3">
+                    <label>Minimum Price</label>
+                    <input uib-tooltip-placement="top" ng-model="srchMC.selectedSearch.Min"
+                           type="text" class="form-control ng-pristine ng-valid ng-touched" placeholder="Minumum...">
+                    <br />
+                    <label>Maximum Price</label>
+                    <input uib-tooltip-placement="top" ng-model="srchMC.selectedSearch.Max"
+                           type="text" class="form-control ng-pristine ng-valid ng-touched" placeholder="Maximum...">
+                    <br />
+                </div>
+                <div class="col-sm-9">
+                    <label>Availability Date</label>
+                    <input uib-tooltip-placement="top" ng-model="srchMC.selectedSearch.AvailabilityDate"
+                           type="text" class="form-control ng-pristine ng-valid ng-touched" placeholder="MM/DD/YYYY">
+                    <br />
+                    <label>Parking</label>
+                    <input uib-tooltip-placement="top" ng-model="srchMC.selectedSearch.HasParking"
+                           type="text" class="form-control ng-pristine ng-valid ng-touched" placeholder="true or false">
+                    <br />
+                    <label>Lease Terms</label>
+                    <input uib-tooltip-placement="top" ng-model="srchMC.selectedSearch.LeaseTerms"
+                           type="text" class="form-control ng-pristine ng-valid ng-touched" placeholder="Months">
+                    <br />
+                </div>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="srchMC.filter()">Search</button>
+            <button class="btn btn-warning" ng-click="srchMC.cancel()">Cancel</button>
+        </div>
+    </div>
+</script>
+
+   
+    

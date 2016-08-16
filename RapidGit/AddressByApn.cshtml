@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "AddressByApn";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="panel-body clearfix bg-primary">
+    <div class="col-lg-12 headerTitle"><center> <h2> Attach Property to Address</h2> </center></div>
+    <div class="example-box-wrapper toggle-button-container box-wrapper">
+    </div>
+</div>
+
+<div class="panel" ng-controller="addressToApnMainController as main">
+    <div class="panel-body">
+        <label for="addressSearch" class="col-md-2 control-label">Search for an address</label>
+        <div class="col-md-6">
+            <form id="searchForm" name="main.searchForm" role="form" novalidate>
+                <input type="text"
+                       id="addressSearch"
+                       name="addressSearch"
+                       ng-model="main.searchItem"
+                       class="form-control"
+                       required>
+                <div ng-show="main.searchButtonClicked && !main.searchItem">This cannot be blank.</div>
+            </form>
+        </div>
+        <div ng-class="main.searchForm.addressSearch.$valid? '' : 'disabled'">
+            <div ng-class="main.taskDisabled? 'disabled' : ''">
+                <button type="button" class="btn btn-primary" ng-click="main.searchForAddress(main.searchItem)">
+                    <span ng-show="main.taskDisabled" class="glyphicon glyphicon-refresh glyphicon-spin"> </span>{{main.taskDisabled? ' Searching...': ' Search'}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-show="main.searchButtonClicked && main.displayedSearchItem">
+        <div class="col-md-10 panel-body"><center><i>There are {{main.searchListLength? main.searchListLength : "0"}} matches for '{{main.displayedSearchItem}}'.</i></center></div>
+        <div class="panel-body">
+            <label for="addressSearchBox" class="col-md-2 control-label">Results</label>
+            <div class="col-md-6">
+                <select class="form-control" id="addressSearchBox" name="addressSearchBox" ng-model="main.addressObject.address" size="10" ng-options="item.line1 + '--' + item.city + '--' + item.zipCode for item in main.searchList">
+
+                    <option disabled selected value="">--Select an option--</option>
+                </select>
+                <br />
+                <div href="#modal-open" data-toggle="tab" ng-class="main.addressObject.address? '' : 'disabled'" ng-click="main.launchModal(main.addressObject.address)"><button type="button" class="btn btn-primary">Select this address</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script class="col-md-6" type="text/ng-template" id="modalContent.html">
+
+        <div class="modal-header">
+        <center> <h2 class="content-box-header clearfix bg-primary">{{mc.selectedAddObj.line1 +", "+mc.selectedAddObj.city+" "+mc.selectedAddObj.zipCode}}</h2></center>
+        </div>
+
+    <div class="row">
+        <div class="col-md-12">
+          
+ <center><div id="map-canvas" style="position: relative; overflow: hidden; height:200px; width:300px; transform: translateZ(0px); background-color: rgb(229, 227, 223);"> </div></center>
+            </div>
+                </div>
+    <div class="panel">
+        <div class="button-pane pad10A">
+            <form class="form-inline" role="form" id="comForm" name="mc.propertyFindForm" ng-submit="mc.findNewProperty(mc.findProperty)">
+                <div clas="form-group">
+                    <div class="col-sm-12">
+                        <h5 ng-binding> <label class="form-conctrol col-md-1" for="apnSend" 
+uib-tooltip="10-digit Assessor Identification Number. Also known as the Parcel Number, or Company Number for personal property assessments."> APN:</label></h5>
+                        <div class="col-sm-8">
+                            <input type="text"
+                                   class="form-control pull-right margin-full-5"
+                                   ng-class="{'error': mc.showApnSendErrors && !mc.propertyFindForm.apnSend.$valid}"
+                                   placeholder="10 digit number only....."
+                                   name="apnSend"
+                                   id="apnSend"
+                                   ng-model="mc.findProperty.apnSend"
+                                   ng-minlength="10"
+                                   ng-maxlength="10"
+                                   required>
+
+            <div role="alert" class="help-inline error">
+                                <span class="alert alert-danger" ng-show="mc.showApnSendErrors && mc.propertyFindForm.apnSend.$error.required"> APN is required</span> <!-- errors for specific fields can be accessed with the syntax [form name].[field name].$error.[validator name]--> 
+                <span class="alert alert-danger" ng-show="mc.showApnSendErrors && mc.propertyFindForm.apnSend.$error.number">APN Must only be numbers </span>
+                <span class="alert alert-danger" ng-show="mc.showApnSendErrors && mc.propertyFindForm.apnSend.$error.minlength">Oh snap! APN name must be at least 10 numbers</span>
+                <span class="alert alert-danger" ng-show="mc.showApnSendErrors && mc.propertyFindForm.apnSend.$error.maxlength">Too long! APN name must be 10 numbers</span>
+            </div>
+            </div>
+        </div>
+       </div>
+                <button class="btn btn-primary " type="submit" id="cmdAddAPN">Search</button>
+    </form>
+            </div>
+        </div>
+
+        <div ng-show="mc.searchButtonClicked">
+        <div class="col-md-10 panel-body"></div>
+            <div class="panel-body">
+                <label for="propertySearchBox" class="col-md-2 control-label">Results</label>
+            <form id="propItems" name="mc.propertyFindForm" ng-submit="mc.attachProperty(mc.selectedPN)">
+                <div class="col-md-10">
+                    <select class="form-control col-md-10" 
+                            id="addressSearchBox" 
+                            name="propertySearchBox"
+                            ng-model="mc.selectedPN" 
+                            size="4">
+                        <option ng-repeat="item in mc.newPropertyItems track by item.id"
+                                ng-value="{{item.id}}">
+                            {{'APN: '+ item.assessorParcelNumber + '--' +'Propery Type: '+ (item.typeId | typeIdFilter :'typeId')+ '--' + 'Year Built: ' +item.yearBuilt}}
+                        </option>
+                    </select>
+                </div>
+                    <br />
+                <div class="button-pane pad10A">
+                  <button type="submit" class="btn btn-primary">Attach Property</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    <div class="row col-md-12">
+    <div class="modal-footer">
+
+        <button class="btn btn-primary" ng-click="mc.ok()">Close</button>
+    </div>
+    </div>
+
+
+</script>
+
+
+
+
+
+
+@section scripts
+{
+
+<script src="~/Scripts/sabio.services.address.js" type="text/javascript"></script>
+<script src="~/Scripts/sabio.services.properties.js"></script>
+<script src="~/Scripts/sabio/maps/services.geo.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD2aG8twoXw2wn0x0Xt8jB6XlgNVTOwpFA"></script>
+<script src="~/Scripts/sabio/Address/services.address.js"></script>
+<script src="~/Scripts/sabio/Address/AddAddressToPropertyController.js"></script>
+<script src="~/Scripts/sabio/Property/services.property.js"></script>
+<script src="~/Scripts/sabio/Address/addToPropModalController.js"></script>
+
+}
