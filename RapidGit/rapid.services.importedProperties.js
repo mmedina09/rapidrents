@@ -1,8 +1,8 @@
-﻿sabio.services.importedProperties = sabio.services.importedProperties|| {};
+rapid.services.importedProperties = rapid.services.importedProperties|| {};
 
 
 
-sabio.services.importedProperties.get = function (onAjaxSuccess, onAjaxError) {
+rapid.services.importedProperties.get = function (onAjaxSuccess, onAjaxError) {
     var url = "/api/imports/properties";//api/properties/imported
     var settings = {
         cache: false
@@ -16,7 +16,7 @@ sabio.services.importedProperties.get = function (onAjaxSuccess, onAjaxError) {
     $.ajax(url, settings);
 }
 
-sabio.services.importedProperties.post = function (myData, onSuccess, onError) {
+rapid.services.importedProperties.post = function (myData, onSuccess, onError) {
     var url = "/api/imports/properties"
     var settings = {
         cache: false
@@ -31,7 +31,7 @@ sabio.services.importedProperties.post = function (myData, onSuccess, onError) {
     $.ajax(url, settings)
 }
 
-sabio.services.importedProperties.postAll = function (myData, onSuccess, onError) {
+rapid.services.importedProperties.postAll = function (myData, onSuccess, onError) {
     var url = "/api/imports/properties/bulk"
     var settings = {
         cache: false
