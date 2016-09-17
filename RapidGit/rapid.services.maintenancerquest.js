@@ -1,7 +1,7 @@
-﻿sabio.services.maintenanceRequest = sabio.services.maintenanceRequest || {};
+rapid.services.maintenanceRequest = rapid.services.maintenanceRequest || {};
 
 //Post
-sabio.services.maintenanceRequest.add = function (data, onSuccess, onError) {
+rapid.services.maintenanceRequest.add = function (data, onSuccess, onError) {
     var url = "/api/maintenancerequests/add";
     var settings = {
         cache: false
@@ -16,7 +16,7 @@ sabio.services.maintenanceRequest.add = function (data, onSuccess, onError) {
 }
 
 //Post
-sabio.services.maintenanceRequest.addressId = function (data, onSuccess, onError) {
+rapid.services.maintenanceRequest.addressId = function (data, onSuccess, onError) {
     var url = "/api/maintenancerequests/addressId";
     var settings = {
         cache: false
@@ -30,7 +30,7 @@ sabio.services.maintenanceRequest.addressId = function (data, onSuccess, onError
     $.ajax(url, settings)
 }
 //GET ALL
-sabio.services.maintenanceRequest.get = function (OnGetSuccess, OnGetError) {
+rapid.services.maintenanceRequest.get = function (OnGetSuccess, OnGetError) {
             var url = "/api/maintenancerequests";
             var settings = {
                 cache: false
@@ -44,7 +44,7 @@ sabio.services.maintenanceRequest.get = function (OnGetSuccess, OnGetError) {
         };
 
 //GET BY ID
-sabio.services.maintenanceRequest.getById = function (id, onSuccess, onError) {
+rapid.services.maintenanceRequest.getById = function (id, onSuccess, onError) {
     var url = "/api/maintenancerequests/" + id;
     var settings = {
         cache: false
@@ -58,7 +58,7 @@ sabio.services.maintenanceRequest.getById = function (id, onSuccess, onError) {
 }
 
 //Get BY ADDRESS ID
-sabio.services.maintenanceRequest.getByAddressId = function (addressId, onSuccess, onError) {
+rapid.services.maintenanceRequest.getByAddressId = function (addressId, onSuccess, onError) {
     var url = "/api/maintenancerequests/address/" + addressId;
     var settings = {
         cache: false
@@ -72,7 +72,7 @@ sabio.services.maintenanceRequest.getByAddressId = function (addressId, onSucces
 }
 
 //PUT
-sabio.services.maintenanceRequest.getUpdate = function (id, myData, onSuccess, onError) {
+rapid.services.maintenanceRequest.getUpdate = function (id, myData, onSuccess, onError) {
     var url = "/api/maintenancerequests/" + id;
     var settings = {
         cache: false
@@ -87,7 +87,7 @@ sabio.services.maintenanceRequest.getUpdate = function (id, myData, onSuccess, o
 }
 
 //DELETE
-sabio.services.maintenanceRequest.delete = function (data, onSuccess, onError) {
+rapid.services.maintenanceRequest.delete = function (data, onSuccess, onError) {
     var url = "/api/maintenancerequests/" + data;
     var settings = {
         cache: false
@@ -101,7 +101,7 @@ sabio.services.maintenanceRequest.delete = function (data, onSuccess, onError) {
 }
 
 
-sabio.services.maintenanceRequest.createMtRqstMessage = function(addressId, data, onSuccess, onError)
+rapid.services.maintenanceRequest.createMtRqstMessage = function(addressId, data, onSuccess, onError)
 {
     var url = "/api/messages/mrequests/" + addressId;
     var settings = {
