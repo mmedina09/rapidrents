@@ -1,7 +1,7 @@
-﻿sabio.services.comment = sabio.services.comment || {};
+rapido.services.comment = rapid.services.comment || {};
 
 
-sabio.services.comment.add = function (commentData, onInsertSuccess, onInsertError) {
+rapid.services.comment.add = function (commentData, onInsertSuccess, onInsertError) {
     var url = "/api/comments";
     var settings = {
         cache: false
@@ -29,7 +29,7 @@ sabio.services.comment.update = function (currentId, commentData, onUpdateSucces
     $.ajax(url, settings);
 }  
 
-sabio.services.comment.getById = function (commentData, onGetAllSuccess, onGetAllError) {
+rapid.services.comment.getById = function (commentData, onGetAllSuccess, onGetAllError) {
     var url = "/api/comments/" + commentData;
     var settings = {
         cache: false
@@ -44,7 +44,7 @@ sabio.services.comment.getById = function (commentData, onGetAllSuccess, onGetAl
     $.ajax(url, settings);
 } 
 
-sabio.services.comment.getByTypeId = function (requestId, onGetAllSuccess, onGetAllError) {
+rapid.services.comment.getByTypeId = function (requestId, onGetAllSuccess, onGetAllError) {
     var url = "/api/comments/" + requestId+ "/get";
     var settings = {
         cache: false
@@ -61,7 +61,7 @@ sabio.services.comment.getByTypeId = function (requestId, onGetAllSuccess, onGet
 
 
 
-    sabio.services.comment.getList = function (onGetAllSuccess, onGetAllError) {
+    rapid.services.comment.getList = function (onGetAllSuccess, onGetAllError) {
         var url = "/api/comments";
         var settings = {
             cache: false
@@ -75,7 +75,7 @@ sabio.services.comment.getByTypeId = function (requestId, onGetAllSuccess, onGet
         $.ajax(url, settings);
     }
 
-    sabio.services.comment.deleteById = function (deleteId, onGetAllSuccess, onGetAllError) {
+    rapid.services.comment.deleteById = function (deleteId, onGetAllSuccess, onGetAllError) {
         var url = "/api/comments/" + deleteId;
         var settings = {
             cache: false
