@@ -1,6 +1,6 @@
-﻿sabio.services.address = sabio.services.address || {};
+rapid.services.address = rapid.services.address || {};
 
-sabio.services.address.add = function (addressData, onSuccess, onError) {
+rapid.services.address.add = function (addressData, onSuccess, onError) {
     var url = "/api/addresses";
 
     var settings = {
@@ -16,7 +16,7 @@ sabio.services.address.add = function (addressData, onSuccess, onError) {
     $.ajax(url, settings);
 }
 
-sabio.services.address.update = function (currentId, addressData, onSuccess, onError) {
+rapid.services.address.update = function (currentId, addressData, onSuccess, onError) {
     var url = "/api/addresses/" + currentId;
     
     var settings = {
@@ -32,7 +32,7 @@ sabio.services.address.update = function (currentId, addressData, onSuccess, onE
     $.ajax(url, settings);
 }
 
-sabio.services.address.get = function (onSuccess, onError) {
+rapid.services.address.get = function (onSuccess, onError) {
     var url = "/api/addresses";
 
     var settings = {
@@ -47,7 +47,7 @@ sabio.services.address.get = function (onSuccess, onError) {
     $.ajax(url, settings);
 }
 
-sabio.services.address.getById = function (currentId, onSuccess, onError) {
+rapid.services.address.getById = function (currentId, onSuccess, onError) {
     var url = "/api/addresses/" + currentId;
     
     var settings = {
@@ -61,7 +61,7 @@ sabio.services.address.getById = function (currentId, onSuccess, onError) {
     $.ajax(url, settings);
 }
 
-sabio.services.address.DeleteById = function (currentId, onSuccess, onError) {
+rapid.services.address.DeleteById = function (currentId, onSuccess, onError) {
     var url = "/api/addresses/" + currentId;
 
     var settings = {
@@ -75,7 +75,7 @@ sabio.services.address.DeleteById = function (currentId, onSuccess, onError) {
     $.ajax(url, settings);
 }
 
-sabio.services.address.getByGeo = function (loc, onSuccess, onError) {
+rapid.services.address.getByGeo = function (loc, onSuccess, onError) {
     var url = "/api/addresses/radius";
 
     var settings = {
@@ -90,7 +90,7 @@ sabio.services.address.getByGeo = function (loc, onSuccess, onError) {
     $.ajax(url, settings);
 }
 
-sabio.services.address.plw_search = function (searchItem, onSuccess, onError) {
+rapid.services.address.plw_search = function (searchItem, onSuccess, onError) {
     $.ajax({
         url: "/api/addresses/Search/" + searchItem,
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -101,7 +101,7 @@ sabio.services.address.plw_search = function (searchItem, onSuccess, onError) {
     });
 }
 
-sabio.services.address.getpage = function (pageIndex, pageSize, onGetSuccess, onGetError) {
+rapid.services.address.getpage = function (pageIndex, pageSize, onGetSuccess, onGetError) {
     var settings = {
         url: "/api/listings/maplist/" + pageIndex + "/" + pageSize
       , context: this
@@ -115,7 +115,7 @@ sabio.services.address.getpage = function (pageIndex, pageSize, onGetSuccess, on
     $.ajax(settings);
 }
 
-sabio.services.address.aWoP_search = function (searchItem, onSuccess, onError) {
+rapid.services.address.aWoP_search = function (searchItem, onSuccess, onError) {
     $.ajax({
         url: "/api/addresses/addPropSearch/" + searchItem,
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -127,7 +127,7 @@ sabio.services.address.aWoP_search = function (searchItem, onSuccess, onError) {
 }
 
 
-sabio.services.address.addAandP = function (propId, addId, onSuccess, onError) {
+rapid.services.address.addAandP = function (propId, addId, onSuccess, onError) {
     var url = "/api/addresses/" + propId + "/" + addId;
 
     var settings = {
@@ -143,7 +143,7 @@ sabio.services.address.addAandP = function (propId, addId, onSuccess, onError) {
 }
 
 
-sabio.services.address.updateLatLong = function (currentId, longLatData, onSuccess, onError) {
+rapid.services.address.updateLatLong = function (currentId, longLatData, onSuccess, onError) {
     var url = "/api/addresses/LongLat/" + currentId;
 
     var settings = {
@@ -159,7 +159,7 @@ sabio.services.address.updateLatLong = function (currentId, longLatData, onSucce
     $.ajax(url, settings);
 }
 
-sabio.services.address.rentCheck = function (searchCost, onSuccess, onError) {
+rapid.services.address.rentCheck = function (searchCost, onSuccess, onError) {
 
     var url = "/api/addresses/RentCheck";
 
@@ -176,7 +176,7 @@ sabio.services.address.rentCheck = function (searchCost, onSuccess, onError) {
     $.ajax(url, settings);
 }
 
-sabio.services.address.rentCheckArea = function (searchCostArea, onSuccess, onError) {
+rapid.services.address.rentCheckArea = function (searchCostArea, onSuccess, onError) {
 
     var url = "/api/addresses/RentCheckArea";
 
@@ -193,7 +193,7 @@ sabio.services.address.rentCheckArea = function (searchCostArea, onSuccess, onEr
     $.ajax(url, settings);
 }
 
-sabio.services.address.rentCheckAll = function (searchedAddress, onSuccess, onError) {
+rapid.services.address.rentCheckAll = function (searchedAddress, onSuccess, onError) {
 
 
     var url = "/api/addresses/RentChecker";
@@ -213,7 +213,7 @@ sabio.services.address.rentCheckAll = function (searchedAddress, onSuccess, onEr
 
 
 
-sabio.services.address.findNearbyAddressListings = function (listingsId, onSuccess, onError) {
+rapid.services.address.findNearbyAddressListings = function (listingsId, onSuccess, onError) {
     var url = "/api/addresses/findNearId/" + listingsId;
 
     var settings = {
@@ -228,7 +228,7 @@ sabio.services.address.findNearbyAddressListings = function (listingsId, onSucce
     $.ajax(url, settings);
 }
 
-sabio.services.address.getPopular = function (Latitude, Longitude, radius, onGetSuccess, onGetError) {
+rapid.services.address.getPopular = function (Latitude, Longitude, radius, onGetSuccess, onGetError) {
 
     var settings = {
         url: "/api/listings/popularlistings/" + Latitude + "/" + Longitude + "/" + radius
