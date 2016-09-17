@@ -1,6 +1,6 @@
-﻿sabio.services.properties = sabio.services.properties || {};
+rapid.services.properties = rapid.services.properties || {};
 
-sabio.services.properties.add = function (propertyData,onSuccess, onError) {
+rapid.services.properties.add = function (propertyData,onSuccess, onError) {
     var url = "/api/properties/";
 
     var settings = {
@@ -15,7 +15,7 @@ sabio.services.properties.add = function (propertyData,onSuccess, onError) {
     $.ajax(url, settings);
 }
 
-sabio.services.properties.update = function (propertyId, propertyData, onSuccess, onError) {
+rapid.services.properties.update = function (propertyId, propertyData, onSuccess, onError) {
 
 
     var url = "/api/properties/" + propertyId;
@@ -33,7 +33,7 @@ sabio.services.properties.update = function (propertyId, propertyData, onSuccess
 
 }
 
-sabio.services.properties.get = function (onAjaxSuccess, onAjaxError) {
+rapid.services.properties.get = function (onAjaxSuccess, onAjaxError) {
     var url = "/api/properties/";
     var settings = {
         cache: false
@@ -48,7 +48,7 @@ sabio.services.properties.get = function (onAjaxSuccess, onAjaxError) {
 
 }
 
-sabio.services.properties.getById = function (propertyId, onSuccess, onError) {
+rapid.services.properties.getById = function (propertyId, onSuccess, onError) {
 
 
     var url = "/api/properties/" + propertyId + "/edit";
@@ -65,7 +65,7 @@ sabio.services.properties.getById = function (propertyId, onSuccess, onError) {
 
 }
 
-sabio.services.properties.delete = function (propertyId, onSuccess, onError) {
+rapid.services.properties.delete = function (propertyId, onSuccess, onError) {
 
 
     var url = "/api/properties/" + propertyId + "/delete";
@@ -101,7 +101,7 @@ sabio.services.properties.apn_search = function (searchItem, onSuccess, onError)
 }
 
 
-sabio.services.properties.get = function (onAjaxSuccess, onAjaxError) {
+rapid.services.properties.get = function (onAjaxSuccess, onAjaxError) {
     var url = "/api/properties/";
     var settings = {
         cache: false
@@ -116,7 +116,7 @@ sabio.services.properties.get = function (onAjaxSuccess, onAjaxError) {
 
 }
 
-sabio.services.properties.getByOwnerId = function (onSuccess, onError) {
+rapid.services.properties.getByOwnerId = function (onSuccess, onError) {
 
 
     var url = "/api/properties/owner";
@@ -133,7 +133,7 @@ sabio.services.properties.getByOwnerId = function (onSuccess, onError) {
 
 }  // This call will get the currentuserId through the endpoint
 
-sabio.services.properties.getByUserId = function (userId, onSuccess, onError) {
+rapid.services.properties.getByUserId = function (userId, onSuccess, onError) {
 
 
     var url = "/api/properties/user/" + userId;
@@ -150,7 +150,7 @@ sabio.services.properties.getByUserId = function (userId, onSuccess, onError) {
 
 } //This call requires a paramenter of userId to get user properties 
 
-sabio.services.properties.propertyOwnerRequest = function (ownerproperty,onSuccess, onError) {
+rapid.services.properties.propertyOwnerRequest = function (ownerproperty,onSuccess, onError) {
     var url = "/api/properties/owner/request";
 
     var settings = {
