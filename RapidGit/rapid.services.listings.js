@@ -1,8 +1,6 @@
-﻿//Do NOT rename anything. Change your ajax calls.
+rapid.services.listings = rapid.services.listings || {};
 
-sabio.services.listings = sabio.services.listings || {};
-
-sabio.services.listings.add = function (listingsData, onSuccess, onError) {
+rapid.services.listings.add = function (listingsData, onSuccess, onError) {
     var url = "/api/listings/";
     var settings = {
         cache: false
@@ -16,7 +14,7 @@ sabio.services.listings.add = function (listingsData, onSuccess, onError) {
     $.ajax(url, settings);
 }
 
-sabio.services.listings.update = function (listingsId, listingsData, onUpdateSuccess, onUpdateError) {
+rapid.services.listings.update = function (listingsId, listingsData, onUpdateSuccess, onUpdateError) {
 
     var url = "/api/listings/" + listingsId;
     var settings = {
@@ -33,7 +31,7 @@ sabio.services.listings.update = function (listingsId, listingsData, onUpdateSuc
 
 }
 
-sabio.services.listings.get = function (onGetSuccess, onGetError) {
+rapid.services.listings.get = function (onGetSuccess, onGetError) {
 
     var settings = {
         url: "/api/listings/",
@@ -48,7 +46,7 @@ sabio.services.listings.get = function (onGetSuccess, onGetError) {
     $.ajax(settings);
 }
 
-sabio.services.listings.getListingsbyId = function (listingsid, onGetIdSuccess, onGetIdError) {
+rapid.services.listings.getListingsbyId = function (listingsid, onGetIdSuccess, onGetIdError) {
     var settings = {
         url: "/api/listings/" + listingsid,
         cache: false
@@ -61,7 +59,7 @@ sabio.services.listings.getListingsbyId = function (listingsid, onGetIdSuccess, 
     $.ajax(settings);
 }
 
-sabio.services.listings.getFeatured = function (onGetFeaturedSuccess, onGetFeaturedError) {
+rapid.services.listings.getFeatured = function (onGetFeaturedSuccess, onGetFeaturedError) {
         var settings = {
         url: "/api/listings/featured",
         cache: false
@@ -74,7 +72,7 @@ sabio.services.listings.getFeatured = function (onGetFeaturedSuccess, onGetFeatu
     $.ajax(settings);
 }
 
-sabio.services.listings.getListingByAddressId = function (addressId, onGetAddressSuccess, onGetAddressError) {
+rapid.services.listings.getListingByAddressId = function (addressId, onGetAddressSuccess, onGetAddressError) {
     var settings = {
     url:"/api/listings/address/" + addressId,
         cache: false
@@ -87,7 +85,7 @@ sabio.services.listings.getListingByAddressId = function (addressId, onGetAddres
     $.ajax(settings);
 }
 
-sabio.services.listings.GetListingByLiId = function (listingid, onGetIdSuccess, onGetIdError) {
+rapid.services.listings.GetListingByLiId = function (listingid, onGetIdSuccess, onGetIdError) {
     var settings = {
         url: "/api/listings/id/" + listingid,
         cache: false
@@ -100,7 +98,7 @@ sabio.services.listings.GetListingByLiId = function (listingid, onGetIdSuccess, 
     $.ajax(settings);
 }
 
-sabio.services.listings.delete = function (listingsid, onDeleteSuccess, onDeleteError) {
+rapid.services.listings.delete = function (listingsid, onDeleteSuccess, onDeleteError) {
     
     var settings = {
         url: "/api/listings/" + listingsid,
@@ -114,7 +112,7 @@ sabio.services.listings.delete = function (listingsid, onDeleteSuccess, onDelete
     $.ajax(settings);
 }
 
-sabio.services.listings.getListingUtilities = function (onGetSuccess, onGetError) {
+rapid.services.listings.getListingUtilities = function (onGetSuccess, onGetError) {
     var settings = {
         url: "/api/listings/Utilities"
       , cache: false
@@ -127,7 +125,7 @@ sabio.services.listings.getListingUtilities = function (onGetSuccess, onGetError
     $.ajax(settings);
 }
 
-sabio.services.listings.plw_insert = function (plwObject, onSuccess, onError) {
+rapid.services.listings.plw_insert = function (plwObject, onSuccess, onError) {
     var url = "/api/listings/AddressListing";
     var settings = {
         cache: false
@@ -141,7 +139,7 @@ sabio.services.listings.plw_insert = function (plwObject, onSuccess, onError) {
     $.ajax(url, settings);
 }
 
-sabio.services.listings.getpage = function (PageIndex, PageSize, onGetSuccess, onGetError) {
+rapid.services.listings.getpage = function (PageIndex, PageSize, onGetSuccess, onGetError) {
 
     var settings = {
         url: "/api/Listings/" + PageIndex + "/" + PageSize
@@ -171,7 +169,7 @@ sabio.services.listings.getfavorite = function (onGetSuccess, onGetError) {
     $.ajax(settings);
 }
 
-sabio.services.listings.getPopular = function (PageIndex, PageSize, onGetSuccess, onGetError) {
+rapid.services.listings.getPopular = function (PageIndex, PageSize, onGetSuccess, onGetError) {
 
     var settings = {
         url: "/api/Listings/" + PageIndex + "/" + PageSize
@@ -186,7 +184,7 @@ sabio.services.listings.getPopular = function (PageIndex, PageSize, onGetSuccess
     $.ajax(settings);
 }
 
-sabio.services.listings.getLatest = function (onGetSuccess, onGetError) {
+rapid.services.listings.getLatest = function (onGetSuccess, onGetError) {
 
     var settings = {
         url: "/api/listings/latest",
