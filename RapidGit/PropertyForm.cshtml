@@ -1,4 +1,4 @@
-﻿@model Sabio.Web.Models.ViewModels.ItemViewModel<int?>
+﻿@model Rapid.Web.Models.ViewModels.ItemViewModel<int?>
 @{
 
     ViewBag.Title = "PropertyForm";
@@ -102,44 +102,44 @@
     <script src="~/Scripts/sabio.services.properties.js"></script>
 
     <script type="text/javascript">
-        sabio.page.startUp = function () {
+        rapid.page.startUp = function () {
             console.log("Proprty Page is online.");
-            sabio.page.currentId = '@Model.Item';
-            if (sabio.page.currentId) {
-                sabio.page.handlers.selectById();
+            rapid.page.currentId = '@Model.Item';
+            if (rapid.page.currentId) {
+                rapid.page.handlers.selectById();
             }
-            console.log(sabio.page.currentId);
-            sabio.page.validate();
-            $("#propertySubmitButton").on("click", sabio.page.handlers.addPropertyInput)
+            console.log(rapid.page.currentId);
+            rapid.page.validate();
+            $("#propertySubmitButton").on("click", rapid.page.handlers.addPropertyInput)
         };
 
-        sabio.page.handlers.addPropertyInput = function () {
+        rapid.page.handlers.addPropertyInput = function () {
 
             if ($('#prop-form').valid()) {
-                if (sabio.page.currentId) {
-                    sabio.page.handlers.updatePropertyInput()
+                if (rapid.page.currentId) {
+                    rapid.page.handlers.updatePropertyInput()
                 } else {
                     console.log("Input Submit Form");
                     var myData = $("#prop-form").serialize()
-                    sabio.services.properties.add(myData,
-                    sabio.page.onPostSuccess, sabio.page.onPostError);
+                    rapid.services.properties.add(myData,
+                    rapid.page.onPostSuccess, rapid.page.onPostError);
                 }
             }
         }
 
-        sabio.page.handlers.updatePropertyInput = function () {
-            var myData = $("#prop-form").serialize() + "&Id=" + sabio.page.currentId;
-            sabio.services.properties.update(sabio.page.currentId, myData,
-            sabio.page.onUpdateSuccess, sabio.page.onUpdateError);
+        rapid.page.handlers.updatePropertyInput = function () {
+            var myData = $("#prop-form").serialize() + "&Id=" + rapid.page.currentId;
+            rapid.services.properties.update(rapid.page.currentId, myData,
+            rapid.page.onUpdateSuccess, rapid.page.onUpdateError);
             console.log("Update Submit Form");
         };
 
-        sabio.page.handlers.selectById = function () {
+        rapid.page.handlers.selectById = function () {
             console.log("Select by Id Fires!");
-            sabio.services.properties.getById(sabio.page.currentId, sabio.page.onSelectSuccess, sabio.page.onUpdateError);
+            rapid.services.properties.getById(rapid.page.currentId, rapid.page.onSelectSuccess, rapid.page.onUpdateError);
         };
 
-        sabio.page.validate = function () {
+        rapid.page.validate = function () {
             jQuery.validator.setDefaults({
                 debug: true
             });
@@ -179,27 +179,27 @@
             });
         };
 
-        sabio.page.onPostSuccess = function (data, status, xhr) {
+        rapid.page.onPostSuccess = function (data, status, xhr) {
             sabio.page.currentId = (data.item);
             console.log("Post was successful");
             $(".itemId").html(data.item);
         };
 
-        sabio.page.onUpdateSuccess = function (data, status, xhr) {
+        rapid.page.onUpdateSuccess = function (data, status, xhr) {
             console.log("Update Sucessful!");
             $(".itemId").html(data.item);
         };
 
-        sabio.page.onSelectSuccess = function (data, status, xhr) {
+        rapid.page.onSelectSuccess = function (data, status, xhr) {
             console.log(data);
             console.log(data.item);
 
             if (data.item) {
-                sabio.page.populateform(data.item);
+                rapid.page.populateform(data.item);
             }
         };
 
-        sabio.page.populateform = function (singleProperty) {
+        rapid.page.populateform = function (singleProperty) {
             $("#propertyTypeId").val(singleProperty.typeId);
             $("#propertyUnits").val(singleProperty.numberOfUnits);
             $("#yearBuild").val(singleProperty.yearBuilt);
@@ -213,19 +213,19 @@
             }
         }
 
-        sabio.page.onPostError = function (jqXHR, textStatus, errorThrown) {
+        rapid.page.onPostError = function (jqXHR, textStatus, errorThrown) {
             sabio.page.logToBottom(jqXHR.responseJSON);
             $("#msgWindow").addClass("alert-danger");
             $("#msgWindow").removeClass("alert-info");
         };
 
-        sabio.page.onUpdateError = function (jqXHR, textStatus, errorThrown) {
+        rapid.page.onUpdateError = function (jqXHR, textStatus, errorThrown) {
             sabio.page.logToBottom(jqXHR.responseJSON);
             $("#msgWindow").addClass("alert-danger");
             $("#msgWindow").removeClass("alert-info");
         };
 
-        sabio.page.logToBottom = function (data) {
+        rapid.page.logToBottom = function (data) {
             $("#msgWindow").html((JSON.stringify(data)));
         };
     </script>
