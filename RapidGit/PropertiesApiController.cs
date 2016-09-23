@@ -1,12 +1,12 @@
-﻿using Sabio.Web.Domain;
-using Sabio.Web.Models.Requests.Properties;
-using Sabio.Web.Models.Responses;
-using Sabio.Web.Services;
+﻿using Rapid.Web.Domain;
+using Rapid.Web.Models.Requests.Properties;
+using Rapid.Web.Models.Responses;
+using Rapid.Web.Services;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Sabio.Web.Controllers.Api
+namespace Rapid.Web.Controllers.Api
 {
     [RoutePrefix("api/properties")]
     public class PropertiesApiController : ApiController
