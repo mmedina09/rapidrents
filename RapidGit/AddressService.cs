@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Data;
 using System.Data.SqlClient;
-using Sabio.Data;
-using Sabio.Web.Models.Requests.Addresses;
-using Sabio.Web.Domain;
-using Sabio.Web.Domain.Address;
-using Sabio.Web.Models.Requests;
-using Sabio.Web.Domain.Listings;
+using Rapid.Data;
+using Rapid.Web.Models.Requests.Addresses;
+using Rapid.Web.Domain;
+using Rapid.Web.Domain.Address;
+using Rapid.Web.Models.Requests;
+using Rapid.Web.Domain.Listings;
 
-namespace Sabio.Web.Services.Addresses
+namespace Rapid.Web.Services.Addresses
 {
     public class AddressService : BaseService, IAddressService
     {
