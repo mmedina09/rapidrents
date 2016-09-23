@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Sabio.Web.Domain
+namespace Rapid.Web.Domain
 {
     public class MaintenanceRequest
     {
