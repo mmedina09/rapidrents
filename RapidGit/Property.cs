@@ -1,4 +1,4 @@
-﻿namespace Sabio.Web.Domain
+﻿namespace Rapid.Web.Domain
 {
     public class Property
     {
