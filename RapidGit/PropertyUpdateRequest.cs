@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Sabio.Web.Models.Requests.Properties
+namespace Rapid.Web.Models.Requests.Properties
 {
     public class PropertyUpdateRequest : PropertyAddRequest
     {
