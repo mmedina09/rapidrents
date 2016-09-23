@@ -1,7 +1,7 @@
-﻿using Sabio.Web.Models.ViewModels;
+﻿using Rapid.Web.Models.ViewModels;
 using System.Web.Mvc;
 
-namespace Sabio.Web.Controllers
+namespace Rapid.Web.Controllers
 {
     [Authorize]
     [RoutePrefix("properties")]
