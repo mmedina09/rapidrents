@@ -1,8 +1,8 @@
-﻿using Sabio.Data;
-using Sabio.Web.Domain;
-using Sabio.Web.Models.Requests;
-using Sabio.Web.Models.Requests.MaintenanceRequest;
-using Sabio.Web.Services;
+﻿using Rapid.Data;
+using Rapid.Web.Domain;
+using Rapid.Web.Models.Requests;
+using Rapid.Web.Models.Requests.MaintenanceRequest;
+using Rapid.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 
-namespace Sabio.Web.Models
+namespace Rapid.Web.Models
 {
     public class MaintenanceRequestServices : BaseService, IMaintenanceRequestServices
     {
