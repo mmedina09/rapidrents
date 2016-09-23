@@ -1,15 +1,15 @@
-﻿using Sabio.Web.Models.Requests.Properties;
+﻿using Rapid.Web.Models.Requests.Properties;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
 
-using Sabio.Web.Domain;
-using Sabio.Data;
-using Sabio.Web.Models.Requests.ImportedRents;
+using Rapid.Web.Domain;
+using Rapid.Data;
+using Rapid.Web.Models.Requests.ImportedRents;
 using System;
 
-namespace Sabio.Web.Services
+namespace Rapid.Web.Services
 {
     public class ImportService : BaseService, I_ImportedProperties
     {
