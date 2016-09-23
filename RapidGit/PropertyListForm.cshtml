@@ -70,27 +70,27 @@
 
 @section scripts{
     <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/sabio.services.properties.js"></script>
+    <script src="~/Scripts/rapid.services.properties.js"></script>
     <script type="text/javascript">
 
-        sabio.page.startUp = function () {
+        rapid.page.startUp = function () {
             console.log("The View Page is Firing");
-            sabio.page.propertyFormContainer = $("#listAppend");
-            sabio.page.getProperties();
+            rapid.page.propertyFormContainer = $("#listAppend");
+            rapid.page.getProperties();
 
 
-            $("#listAppend").on("click", ".edit-record", sabio.page.handlers.edit);
-            $("#listAppend").on("click", ".delete-record", sabio.page.handlers.deletePropertyInput)
+            $("#listAppend").on("click", ".edit-record", rapid.page.handlers.edit);
+            $("#listAppend").on("click", ".delete-record", rapid.page.handlers.deletePropertyInput)
         }
 
-        sabio.page.getProperties = function () {
+        rapid.page.getProperties = function () {
             console.log("display list is firing");
 
-            sabio.services.properties.get(sabio.page.onGetSuccess, sabio.page.onGetError);
+            rapid.services.properties.get(rapid.page.onGetSuccess, rapid.page.onGetError);
 
         }
 
-        sabio.page.handlers.edit = function () {
+        rapid.page.handlers.edit = function () {
             console.log(this.id);
 
 
@@ -101,29 +101,29 @@
 
         }
 
-        sabio.page.handlers.deletePropertyInput = function () {
+        rapid.page.handlers.deletePropertyInput = function () {
             sabio.page.deleteId = $(this);
             var newBar = $(this).attr("id");
-            sabio.services.properties.delete(newBar,
-            sabio.page.onDeleteSuccess, sabio.page.onDeleteError);
+            rapid.services.properties.delete(newBar,
+            rapid.page.onDeleteSuccess, rapid.page.onDeleteError);
         };
 
-        sabio.page.onGetSuccess = function (data) {
+        rapid.page.onGetSuccess = function (data) {
             console.log(data.items)
             console.log(data);
             if (data && data.items) {
-                sabio.page.processProperties(data.items);
+                rapid.page.processProperties(data.items);
             }
         }
 
-        sabio.page.processProperties = function (arrProperties) {
+        rapid.page.processProperties = function (arrProperties) {
             for (var i = 0; i < arrProperties.length; i++) {
                 var currentProperty = arrProperties[i];
-                sabio.page.processProperty(i, currentProperty);
+                rapid.page.processProperty(i, currentProperty);
             }
         }
 
-        sabio.page.processProperty = function (propertyIndex, propertyData) {
+        rapid.page.processProperty = function (propertyIndex, propertyData) {
             var item = $($("#listItemTemplate").html());
             var url = "/properties/" + propertyData.id + "/edit";
 
@@ -139,24 +139,24 @@
             item.find(".assessor-parcel-number").text(propertyData.assessorParcelNumber);
             item.find(".has-detached").text(propertyData.hasDetached);
 
-            sabio.page.appendProperty(item);
+            rapid.page.appendProperty(item);
         }
 
-        sabio.page.appendProperty = function (jqPropertyObject) {
+        rapid.page.appendProperty = function (jqPropertyObject) {
             sabio.page.propertyFormContainer.append(jqPropertyObject);
         }
 
-        sabio.page.onGetError = function (jqXHR, textStatus, errorThrown) {
-            sabio.page.logToBottom(jqXHR.responseJSON);
+        rapid.page.onGetError = function (jqXHR, textStatus, errorThrown) {
+            rapid.page.logToBottom(jqXHR.responseJSON);
         };
 
-        sabio.page.onDeleteSuccess = function (data, status, xhr) {
+        rapid.page.onDeleteSuccess = function (data, status, xhr) {
             sabio.page.deleteId.closest(".table-striped").remove();
             console.log("Delete was successful");
-            sabio.page.deleteId = null;
+            rapid.page.deleteId = null;
         };
 
-        sabio.page.onDeleteError = function (jqXHR, textStatus, errorThrown) {
+        rapid.page.onDeleteError = function (jqXHR, textStatus, errorThrown) {
             console.log('delete error');
         };
     </script>
