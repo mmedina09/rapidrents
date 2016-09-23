@@ -1,11 +1,11 @@
-﻿using Sabio.Web.Domain;
+﻿using Rapid.Web.Domain;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using Sabio.Web.Models.Requests.Comments;
-using Sabio.Data;
+using Rapid.Web.Models.Requests.Comments;
+using Rapid.Data;
 
-namespace Sabio.Web.Services.Comments
+namespace Rapid.Web.Services.Comments
 {
 
     public class CommentsService : BaseService, ICommentsService
