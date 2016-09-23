@@ -1,9 +1,9 @@
-﻿using Sabio.Web.Domain.Address;
-using Sabio.Web.Models.Requests;
-using Sabio.Web.Models.Requests.Addresses;
-using Sabio.Web.Models.Responses;
-using Sabio.Web.Services;
-using Sabio.Web.Services.Addresses;
+﻿using Rapid.Web.Domain.Address;
+using Rapid.Web.Models.Requests;
+using Rapid.Web.Models.Requests.Addresses;
+using Rapid.Web.Models.Responses;
+using Rapid.Web.Services;
+using Rapid.Web.Services.Addresses;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
